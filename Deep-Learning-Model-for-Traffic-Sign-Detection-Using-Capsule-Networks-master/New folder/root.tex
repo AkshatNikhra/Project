@@ -1,0 +1,264 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%2345678901234567890123456789012345678901234567890123456789012345678901234567890
+%        1         2         3         4         5         6         7         8
+
+\documentclass[letterpaper, 10 pt, conference]{ieeeconf}  % Comment this line out if you need a4paper
+
+%\documentclass[a4paper, 10pt, conference]{ieeeconf}      % Use this line for a4 paper
+
+\IEEEoverridecommandlockouts                              % This command is only needed if 
+                                                          % you want to use the \thanks command
+
+\overrideIEEEmargins                                      % Needed to meet printer requirements.
+
+% See the \addtolength command later in the file to balance the column lengths
+% on the last page of the document
+
+% The following packages can be found on http:\\www.ctan.org
+%\usepackage{graphics} % for pdf, bitmapped graphics files
+%\usepackage{epsfig} % for postscript graphics files
+%\usepackage{mathptmx} % assumes new font selection scheme installed
+%\usepackage{times} % assumes new font selection scheme installed
+%\usepackage{amsmath} % assumes amsmath package installed
+%\usepackage{amssymb}  % assumes amsmath package installed
+
+\title{\LARGE \bf
+Novel Deep Learning Model for Traffic Sign Detection Using Capsule Networks
+}
+
+\font\myfont=cmr12 at 6.5pt
+\author{\myfont Amara Dinesh Kumar$ \\ \myfont Department of Electronics and Communication Engineering\\\myfont Amrita School of Engineering, Coimbatore,\\
+\myfont Amrita Vishwa Vidyapeetham,India \\
+\myfont cb.en.p2ael17001@cb.students.amrita.edu
+\and
+\myfont R.Karthika$ \\\myfont Department of Electronics and Communication Engineering\\\myfont Amrita School of Engineering, Coimbatore\\\myfont
+Amrita Vishwa Vidyapeetham,India \\\myfont
+ r\_karthika@cb.amrita.edu 
+\and
+\myfont Latha Parameswaran \\\myfont Department of Computer Science and Engineering\\\myfont Amrita School of Engineering, Coimbatore\\\myfont
+Amrita Vishwa Vidyapeetham,India \\\myfont
+ p\_latha@cb.amrita.edu }
+% <-this % stops a space
+%\author{\IEEEauthorblockN{Amara Dinesh Kumar}
+%\IEEEauthorblockA{M.Tech Automotive Electronics\\
+%Amrita Vishwa Vidyapeetham\\
+%Ettimadai,Coimbatore,India\\
+%Email: cb.en.p2ael17001@cb.students.amrita.edu}
+%\and
+%\IEEEauthorblockN{R. Karthika}
+%\IEEEauthorblockA{Electronics and Communication Engineering\\
+%Amrita Vishwa Vidyapeetham\\
+%Ettimadai,Coimbatore,India\\
+%Email: r_karthika@cb.amrita.edu}}
+
+%\documentclass{article}
+
+\usepackage{graphicx} %package to manage images
+\graphicspath{ {images/} }
+
+\usepackage[rightcaption]{sidecap}
+
+\usepackage{wrapfig}
+
+\begin{document}
+
+
+
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+
+convolutional neural networks are the most widely used deep learning algorithms for traffic signal classification till date\cite{stallkamp2011german} but they fail to capture pose, view, orientation of the images because of the intrinsic inability of max pooling layer.This paper proposes a novel method for Traffic sign detection using deep learning architecture called capsule networks that achieves outstanding performance on the German traffic sign dataset.Capsule network consists of capsules which are a group of neurons representing the instantiating parameters of an object like the pose and orientation\cite{hinton2018matrix} by using the dynamic routing and route by agreement algorithms.unlike the previous approaches of manual feature extraction,multiple deep neural networks with many parameters,our method eliminates the manual effort and provides resistance to the spatial variances.CNN\'s can be fooled easily using various adversary attacks\cite{DBLP:journals/corr/abs-1710-08864} and capsule networks can overcome such attacks from the intruders and can offer more reliability in traffic sign detection for autonomous vehicles.Capsule network have achieved the state-of-the-art accuracy of 97.6\% on German Traffic Sign Recognition Benchmark dataset (GTSRB).
+
+Keywords: CNN, Capsule Net, Pose, Traffic sign, Dataset
+
+\end{abstract}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{INTRODUCTION}
+
+Traffic sign detection is a real world task which involves lot of constraints and complications.Even a minor misclassification of the traffic sign can lead to catastrophic consequences and can even lead to loss of life.It is implemented in various advanced driver assistance systems and in autonomous vehicles.A camera is present on the dashboard of the vehicle and it captures the real time video feed which is sampled into frames and fed to a deep learning model which is deployed inside a automotive embedded board.As the vehicle is driven in various environments,lighting conditions,speeds and geographies it is essential for the deep learning algorithm to be robust and reliable at all times.The camera can capture the traffic sign in different orientations and poses but the algorithm should be able to recognize the correct sign\cite{8126154} and capsule networks are the perfect deep learning algorithm in addressing this problem.\par
+Generally Convolutional neural networks are used for all the state of the art deep learning neural network algorithms\cite{wu2013traffic} in most of the image related tasks.Convolution captures the spatial information of the image using the kernel function in convolution layer. A CNN consists of input, output and hidden layers. The hidden layers further consists of convolutional, pooling, fully connected and normalization layers.
+CNN’s perform very well for image related operations but they have some fundamental limits and draw backs. The CNN fail\cite{2015arXiv150602025J} to capture the relative spatial and orientation relationships.CNN can get confused easily by image orientation or by change in pose.\par
+Pose information can be rotation, thickness, skew, precise object position. Max pooling is the biggest drawback for the CNN as they cannot propagate the spatial hierarchies between simple and complex objects which lead to invariance and makes them fail to capture the pose and the spatial relationships between the pixels in the image.CNN uses the max pooling layer which down samples the data and reduces the spatial information of data that is passed to the next layer. To overcome this drawback capsnet architecture is invented which reached the state of the art performance on MNIST digits dataset\cite{hinton2018matrix} and obtained better results than CNN’s on Multi MNIST dataset.
+
+
+\section{RELATED WORK}
+Comparing the research work done in the past is difficult in the traffic sign detection area because of the extensive research effort carried by researchers in this area and use of different types of datasets for solving different set of problems which includes the detection,classification and tracking related tasks.
+\subsection{Using computer vision feature extraction methods}
+This is one of the early approach under which a lot of algorithms and methodologies were proposed by the computer vision scientists before the advent of machine learning.Techniques like Histogram Oriented Gradients (HOG)\cite{1467360} is initially popularized for detection of pedestrians.In this method gradients of color images are computed along with different normalized,weighted histograms.Scale Invariant Feature Transform (SIFT)\cite{Lowe:1999:ORL:850924.851523} technique was used for classification and sliding window approach was used to perform both classification and detection tasks simultaneously.
+
+\subsection{Using machine learning}Several kinds of machine learning
+algorithms\cite{park2013design} like support vector machines, linear discriminant analysis\cite{malik2007road}, ensemble classifiers, random forest and kd-trees\cite{zaklouta2014real} were used for the traffic sign classification.\par
+
+Linear Discriminate Analysis(LDA)\cite{wu2013traffic} is based on maximum posteriori estimation of the class membership.Class densities are assumed to have multi variate Gaussian and common co-variance matrix.\par
+
+Random Forest is a ensemble classifier method\cite{stallkamp2011german} which is based on the set of non pruned random decision trees.Each decision tree is built using the randomly took training data.For classification testing data is evaluated by all the decision trees and the classification output is based on the majority voting considering decisions of all the majority decision trees.\par
+
+Support Vector Machines(SVM) is a classification algorithm which classifies the data by dividing the n dimensional data plane with a hyper plane for classification\cite{park2013design}.SVM can even separate non-linearly scattered data by transforming the classification plane to higher dimensions using non linear kernel function which uses a method called kernel trick for its implementation.\par
+Machine learning approaches\cite{mogelmose2012vision} were unable to handle different aspect ratio and variable size images and features have to be manually hand engineered which is very time consuming and error prone process.
+
+\subsection{Using deep learning}
+To overcome the disadvantages of above mentioned conventional methodologies new implementations based on deep learning algorithms replaced the previous methods\cite{8126127} in recent years with increase in computing power and availability of standardized data sets and access to huge amount of data.\par Convolutional neural networks are the state of the art algorithms achieving highest accuracy rate.LENET architecture\cite{stallkamp2012man} was the first CNN architecture for traffic sign classification.\par convolutional neural networks are biologically inspired multi-stage neural network architecture that learns the invariant features automatically.
+Each stage consists of filter bank(convolution) layer,non-linear transform layer,spatial pooling layer\cite{DBLP:conf/ijcnn/SermanetL11}.The spatial pooling layer deceases the spatial information and acts like a complex cells in visual cortex.A gradient descent based optimizer is used for training and updating each filter to minimize loss function.\par
+The output of all the layers is fed to the classifier for improving the accuracy of classification.
+\section{DATA SET}
+German Traffic Sign Recognition Benchmark (GTSRB) dataset was described and visualized.It is a publicliy available dataset and it is created from 10 hours video of driving  on different roads in Germany.video is captured using Prosilica GC 1380CH camera with framerate of 25 fps and the traffic sign extraction is performed using the NISYS Advanced Development and Analysis Framework(ADAF)\cite{Houben-IJCNN-2013} module based software system.\par
+After cleaning and removing the redundant and repetitive frames the dataset is reduced to total 51,840 images of the 43 classes.
+All the images in the dataset have 32*32 size and the total dataset is divided into training data and testing data.Total 39,209 images are present as training data and 12,630 images as test data.
+\newline
+\newline
+\begin{figure}
+\includegraphics[width=8.3cm, height=6cm]{dataset}
+\caption{Sample images from GTSRB dataset}
+\end{figure}
+%\newlineur
+%\includegraphics[width=8.3cm, height=6cm]{table1}
+
+\section{CAPSULE NET ARCHITECTURE}
+Capsule networks consists of capsules rather than neurons. Capsule\cite{xi2017capsule} is a group artificial neural networks that perform complicated internal computations on their inputs and encapsulate the results in a small vector. Each capsule captures the relative position of the object and if the object pose is changed then the output vector orientation is changed\cite{hinton2011transforming} accordingly making them equi-variant.
+%\begin{figure*}
+%  \includegraphics[width=8cm, height=5cm]{capsnet_architecture}
+%  \caption{Proposed capsule network architecture for traffic sign detection }
+%\end{figure*}
+\begin{figure}[ht]
+\includegraphics[width=9cm, height=5cm]{caps_architecture1}
+\caption{Capsule sign architecture for traffic sign detection}
+\end{figure}
+\par Caps Net consists of multiple layers and the first layer is called primary capsules where each capsule receives a small part of the receptive field as input and tries to detect the pose of particular pattern. The output of the capsule is a vector and dynamic routing technique was used to ensure that the output is sent to the appropriate parent in the layer which can be inferred from fig. 2. 
+\subsection{Computation of capsule vector inputs and outputs}The capsule computes a prediction vector\cite{wang2018optimization} by multiplying the weight matrix(W\textsubscript{ij}) with its own output vector(u\textsubscript{i}). The coupling coefficient of that capsule corresponding output increases the scalar product and prediction\cite{hinton1981parallel} for that particular capsule output.
+\newline
+\newline
+
+%\begin{figure*}
+%\centerline{\includegraphics[width=150mm, height=55mm]{caps_block2}}
+%  \caption{Computation graph inside the capsule network}
+%\end{figure*}
+
+%\includegraphics[width=8cm, height=6cm]{caps_block}
+
+$$
+\hat{u}_{j|i} = W_{ij}u_{i}  
+$$
+where u\textsubscript{j\textbar i}=prediction vector, W\textsubscript{ij}=weight matrix and u\textsubscript{i}=output vector.
+\subsection{Squash Function}
+In capsule networks a non-linear activation function called squashing function\cite{sabour2017dynamic} is used. This function converts the length of the output vector into the probability of the capsule connecting to that object. It performs shrinking of the the long output vectors slightly below length one and short output vectors almost close to zero.
+\newline
+$$
+v_{j}=\frac{||s_{j}||^{2}}{1+||s_{j}||^{2}} \frac{s_{j}}{||s_{j}||}
+$$
+%\newline
+where s\textsubscript{j}=Total Input, v\textsubscript{j}=Vector Output of capsule j.
+
+\subsection{Routing Algorithm}
+Scalar output feature detectors of the CNN were replaced with vector output capsules\cite{hinton2011transforming} and max pooling with route by agreement. The dimensionality of the capsule increases with the increase In hierarchy because of the shift from place coding (encoded in continuous space))to rate coding(encoded in ) and the high level capsules represent entities which are complex and have more degree of freedom.This route by agreement is efficient than the max pooling used in the CNN’s.
+$$
+S_{j} = \sum_i c_{ij}\hat{u}_{j|i}
+$$
+where S\textsubscript{j}=summation matrix,u\textsubscript{j\textbar i}=prediction vector, and c\textsubscript{ij}=coupling coefficients determined by iterative dynamic routing.
+\section{EXPERIMENTS}
+
+\subsection{Data Preparation}
+The data is from the disk in pickled format.Pickling is the process of saving a file in a serialised format before writing it into the disk.Size of each image is 32*32 and total 34799 images are in the training dataset and 12630 in the testing dataset.\par
+%\newline
+%\newline
+\begin{figure}[ht]
+\centerline{\includegraphics[width=7cm, height=7cm]{sign1}}
+\caption{Visualizing the data}
+\end{figure}
+\subsection{preprocessing}
+The image brightness is enhanced with random uniform distribution of 0.6 to 1.5 and image contrast is also enhanced with random uniform distribution of 0.6 to 1.5.\par
+The training dataset is augmented five-fold by replicating the available with data rotation $ \pm $ 20, shear range of 0.2, width shift range of 0.2, horizontal flip which increased the training dataset size leading to better performance and regularizing thus avoiding the over fitting problem.\par
+Augmenting the existing training dataset will increase the dataset size to 34799 X 5 = 173995 images.
+\subsection{Network architecture}
+The architecture used for the traffic sign detection consists of the input layer and initially convolutional layers as part of primary capsules and the output vector of primary capsule is sent to traffic sign capsules.
+
+\subsubsection{Input Layer}
+The input layer consists of input training images and the dimension is equal to the total training images.
+\subsubsection{Primary Capsule Layer}
+The first layer that follows the input layer is the primary capsule layer and for calculating the output first two convolution layers were used.
+The first convolution layer consists of kernel size 9 and 256 filters and padding was not used.Rectified Linear unit (ReLU) was used as the non linear activation function and a drop out of 0.7 which is fixed to be optimal after testing with different values.\par
+Output is reshaped to get the output vectors of primary capsules.Since the primary capsule layer is fully connected to the traffic sign capsule layer the output vectors have to be squashed using the squashing function.Small epsilon value is added to the squash function to avoid the vanishing gradient problem while training.Now the output of the squash function is fed to the traffic sign capsule layer.
+
+\subsubsection{Traffic Sign Capsule Layer}
+To compute the output of traffic sign capsules,calculate the predicted output vectors for each and every primary,traffic sign capsule pair and implement the route by agreement algorithm.\par
+The traffic sign capsule layer consists of 43 capsules each representing a particular class of the German traffic sign dataset with size of 32 each.
+For each capsule i in the first layer predict the corresponding weights and output vectors of every capsule j in the second layer.
+
+\subsection{Reconstruction}
+A decoder network is added to the traffic sign capsule network which consists of fully connected network layer which helps in the reconstruction of the input images by tuning the output of the traffic sign capsule network.This feedback mechanism will make the network to preserve the information required for the reconstruction of the traffic sign across the entire network.This acts as regularization and this avoids the over-fitting of the data and helps in proper generalization of traffic signs.
+
+\subsubsection{Mask}
+For the reconstruction of the input traffic sign only that particular output vector corresponding to predicted traffic sign is sent and all remaining outputs should be masked.Masking function is used to avoid all the other output vectors during training phase.\par
+The reconstruction mask is realized using the one-hot function.For the target class its value will be one and for all the other classes its value will be zero.
+
+\subsubsection{Decoder}
+The Decoder consists of a non linear activation layer of ReLU followed by a sigmoid activation layer.
+
+\subsection{Losses}
+
+
+
+\subsubsection{Margin Loss}
+The length  of the instantiation output vector represent the probability of the respective capsule's entity exists or not.The digit class k has the longest vector output only if that traffic sign is present in the input image.\par
+For every traffic sign capsule k the margin loss is separate and it is given as
+$$
+L_{k} = T_{k}\max(0,m^{+}-||\nu_{k}||)^{2}+\ \lambda(1- T_{k})\max(0,||\nu_{k}||-m^{-})^{2}
+$$
+the value of T\textsubscript{k} is 1 if a traffic sign of class k is present and here m+ = 0.9 and m- = 0.1.$\lambda$ is a regularization parameter which stops the learning from shrinking the activity vector of all traffic sign capsules.
+
+\subsubsection{Reconstruction Loss}
+It is the difference between the squares of the input image and reconstructed image
+$$
+R = (Input \ image)^{2} - (Reconstructed \ image)^{2} 
+$$
+where R = Reconstruction \ Loss
+\subsubsection{Final Loss}
+The Final Loss is the sum of Margin loss and Reconstruction Loss scaled to a factor $\lambda$ which acts as a scaling factor and it should be very much less than one.
+$$
+F = (Margin \ Loss) - \lambda (Reconstruction \ Loss)
+$$
+where F= Final Loss, $\lambda$= 0.0005 \par
+Margin loss should always dominate the Reconstruction loss in comparison.If reconstruction loss is more in the final loss then the model tries to exactly match output image with the input image of training dataset which lead to overfitting of the model to the training data.
+\subsection{Results}
+The model is evaluated using the testing data set of 12,630 testing images.Accuracy is computed as the ratio of the correctly identified traffic signs by the total number of traffic signs.\cite{Park:2013:DVP:2444044.2444225}
+$$
+Accuracy=\frac{\sum correctly\ identified \ traffic \ signs}{Total \ number \ of \ traffic \ signs}
+$$ \par
+with a batch size of 50 obtained an accuracy of 97.6 percent and a final loss of 0.0311028 evaluated on the testing dataset. \par
+The performance evaluation is based on the correct classification rate(CCR) and binary loss ( 0 or 1 ) which means by counting the number of misclassification's.The test set is unbalanced in terms of the number of samples for a particular class but assume that all the classes are equally important and carry equal weightage. \par
+ Keras and tensor flow deep learning libraries with CUDA and CUDNN libraries for GPU accelerated training to implement this capsule network model. The model is trained using the system with Intel i7 7500U Processor 2.7G,3M Processor speed 8GB Memory RAM, 1 TB Hard Disk, NV GT 940MX 2G DDR3 Nvidia GeForce GPU. It took 10 hours for training the model and can be decreased by using a high performance GPU like Nvidia K80.
+
+\begin{table}
+\centering
+\caption{comparison of correct classification rate for different methods}
+\begin{tabular}{ll} 
+\hline
+CCR (\%) & Method                   \\ 
+\hline
+97.62    & using Capsule networks              \\
+96.14    & Random Forests \cite{stallkamp2011german}\\
+95.68    & LDA(HOG 2) \cite{Lowe:2004:DIF:993451.996342}\\
+93.18    & LDA(HOG 1) \cite{Lowe:1999:ORL:850924.851523}\\
+92.34    & LDA(HOG 3) \cite{Lowe:2004:DIF:993451.996342}\\
+\hline
+\end{tabular}
+\end{table}
+From Table 1 we can conclude that capsule network is superior and performing better than other methods mentioned.
+ \subsection{Conclusion}
+Traffic sign detection is a challenging task and capsule networks using their inherent ability to detect the pose and spatial variances perform better when compared to CNN's and capsule networks increase the reliability and accuracy by correctly performing image classification and recognition tasks even on blurred,rotated and distorted images.
+
+\subsection{Acknowledgement}
+Thanks to Dr. K.P.Soman for his constant motivation and for cultivating curiosity in deep learning.
+\bibliographystyle{unsrt}
+\bibliography{ref}
+
+
+\end{document}
